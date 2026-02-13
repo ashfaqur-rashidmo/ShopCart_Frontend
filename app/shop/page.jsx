@@ -1,4 +1,5 @@
 import Shop from "@/components/Shop";
+import { Suspense } from "react";
 
 const fetchCategories = async () => {
   try {
@@ -23,7 +24,11 @@ const ShopPage = async () => {
 
   console.log("Fetched categories for page:", categories);
 
-  return <Shop initialCategories={categories} />;
+  return (
+  <Suspense fallback={<div>Loading shop...</div>}>
+  <Shop initialCategories={categories} />;
+</Suspense>
+  );
 };
 
 export default ShopPage;
