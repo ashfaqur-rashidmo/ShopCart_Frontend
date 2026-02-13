@@ -5,7 +5,7 @@ import { Label } from "../ui/label";
 
 const CategoryList = ({ categories = [], selectedCategory, setSelectedCategory }) => {
 
-  // ✅ REMOVE DUPLICATES BY SLUG
+  //  REMOVE DUPLICATES BY SLUG
   const uniqueCategories = Array.from(
     new Map(categories.map(cat => [cat.slug, cat])).values()
   );

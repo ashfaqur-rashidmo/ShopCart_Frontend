@@ -8,7 +8,7 @@ import PriceRange from './shop/PriceRange'
 import ProductGrid from './ProductGrid'
 import Loader from './Loader'
 
-const Shop = ({ categories = [] }) => {
+const Shop = ({ initialCategories = [] }) => {
   const searchParams = useSearchParams()
   const brandFromUrl = searchParams.get("brand")
 
@@ -16,17 +16,33 @@ const Shop = ({ categories = [] }) => {
   const [filteredProducts, setFilteredProducts] = useState([])
   const [brands, setBrands] = useState([])
   const [loading, setLoading] = useState(true)
+  const [categories, setCategories] = useState(initialCategories) 
 
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [selectedBrand, setSelectedBrand] = useState(null)
   const [selectedPrice, setSelectedPrice] = useState(null)
 
-  //🔹 Fetch products
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`)
+        const data = await res.json()
+        setCategories(data.data || [])
+      } catch (err) {
+        console.error(err)
+        setCategories([])
+      }
+    }
+    if (categories.length === 0) fetchCategories()
+  }, [])
+
+  //  Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, { cache: 'no-store' })
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`)
         const data = await res.json()
         setAllProducts(data.data || [])
       } catch (err) {
@@ -43,7 +59,7 @@ const Shop = ({ categories = [] }) => {
   useEffect(() => {
     const fetchBrands = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/brands`, { cache: 'no-store' })
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/brands`)
         const data = await res.json()
         setBrands(data.data || [])
       } catch (err) {
@@ -54,7 +70,7 @@ const Shop = ({ categories = [] }) => {
     fetchBrands()
   }, [])
 
-  //  URL brand
+  //  Set brand from URL
   useEffect(() => {
     if (brandFromUrl) setSelectedBrand(brandFromUrl)
   }, [brandFromUrl])
@@ -80,27 +96,23 @@ const Shop = ({ categories = [] }) => {
   return (
     <Container>
       <div className="flex gap-6 h-[calc(100vh-140px)]">
-        
         <aside className="w-64 overflow-y-auto border-r pr-2">
           <CategoryList
-            categories={categories}
+            categories={categories} 
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
           />
-
           <BrandList
             brands={brands}
             selectedBrands={selectedBrand}
             setSelectedBrands={setSelectedBrand}
           />
-
           <PriceRange
             selectedPrice={selectedPrice}
             setSelectedPrice={setSelectedPrice}
           />
         </aside>
 
-       
         <section className="flex-1 overflow-y-auto relative">
           {loading ? (
             <div className="absolute inset-0 flex items-center justify-center">

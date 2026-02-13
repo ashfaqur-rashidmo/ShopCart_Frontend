@@ -1,21 +1,3 @@
-// import React from 'react'
-// import PriceFormat from './PriceFormat'
-
-// const PriceView = ({price,discount,className}) => {
-//   return (
-//     <div>
-//       <div>
-//         <PriceFormat amount={price} className="text-shop_light_green"/>
-//         {price && discount && (<PriceFormat amount={price - (discount + price) / 100} className="line-through text-xs"/>
-//       )}
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default PriceView
-
-
 import React from 'react'
 import PriceFormat from './PriceFormat'
 
