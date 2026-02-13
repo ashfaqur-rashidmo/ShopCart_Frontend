@@ -4,8 +4,7 @@ import { Suspense } from "react";
 const fetchCategories = async () => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/categories`,
-      { cache: "no-store" }
+      `${process.env.NEXT_PUBLIC_API_URL}/api/categories`
     );
 
     if (!res.ok) return [];

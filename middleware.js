@@ -12,18 +12,35 @@
 // };
 
 
-import { clerkMiddleware } from '@clerk/nextjs/server';
+// import { clerkMiddleware } from '@clerk/nextjs/server';
 
-export default clerkMiddleware();
+// export default clerkMiddleware();
 
+// export const config = {
+//   matcher: [
+//     '/((?!.*\\..*|_next).*)',
+//     '/',
+//     '/(api|trpc)(.*)',
+//   ],
+// };
+
+
+
+
+import { clerkMiddleware, redirectToSignIn } from '@clerk/nextjs/server';
+
+export default clerkMiddleware({
+  publicRoutes: [
+    '/', 
+    '/shop', 
+    '/product/:slug', 
+    '/category/:slug'
+  ],
+});
+  
 export const config = {
   matcher: [
-    '/((?!.*\\..*|_next).*)',
-    '/',
-    '/(api|trpc)(.*)',
+    '/((?!.*\\..*|_next).*)', 
+    '/(api|trpc)(.*)',         
   ],
 };
-
-
-
-
