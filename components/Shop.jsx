@@ -21,7 +21,7 @@ const Shop = ({ categories = [] }) => {
   const [selectedBrand, setSelectedBrand] = useState(null)
   const [selectedPrice, setSelectedPrice] = useState(null)
 
-  // 🔹 Fetch products
+  //🔹 Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true)
