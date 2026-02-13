@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react"
 import Container from "@/components/Container"
 import ProductCard from "@/components/ProductCard"
 import { Title } from "@/components/Text"
-import Link from "next/link"
 import Loader from "@/components/Loader"
 
 const Dealpage = () => {
@@ -15,7 +14,7 @@ const Dealpage = () => {
     const fetchHotProducts = async () => {
       setLoading(true)
       try {
-        const res = await fetch("http://localhost:5000/api/products/hot", { cache: "no-store" })
+        const res = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/products/hot", { cache: "no-store" })
         if (!res.ok) throw new Error("Failed to fetch hot products")
         const { data } = await res.json()
         setProducts(data || [])
@@ -49,7 +48,7 @@ const Dealpage = () => {
   return (
     <div className="py-10 bg-deal_bg">
       <Container>
-        <Title className="mb-5 underline underline-offset-4 decoration-[1px] text-base uppercase tracking-wide text-2xl text-center">
+        <Title className="mb-5 underline underline-offset-4 decoration-[1px]text-base uppercase tracking-wide text-2xl text-center">
           Hot Deals of the week
         </Title>
 

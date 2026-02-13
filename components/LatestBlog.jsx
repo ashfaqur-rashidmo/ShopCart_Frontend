@@ -7,7 +7,7 @@ import dayjs from "dayjs"
 
 const getLatestBlogs = async () => {
   try {
-    const res = await fetch("http://localhost:5000/api/blogs/latest", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/latest`, {
       cache: "no-store",
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -56,7 +56,7 @@ const LatestBlog = async() => {
             <p className='flex items-center gap-1 text-lightColor relative group hover:cursor-pointer'>
               <Calendar size={15}/>{" "}
               {dayjs(blog.publishedAt).format("MMMM D","YYYY")}
-             <span className='absolute left-0 -bottom-1.5 bg-lightColor/20 inline-block w-full h-[2px] group-hover:bg-shop_dark_green hover:cursor-pointer hoverEffect'/>
+             <span className='absolute left-0 -bottom-1.5 bg-lightColor/20 inline-block w-full h-0.5 group-hover:bg-shop_dark_green hover:cursor-pointer hoverEffect'/>
             </p>
           </div>
           

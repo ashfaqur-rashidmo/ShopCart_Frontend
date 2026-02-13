@@ -11,17 +11,17 @@ const CategoryProduct = ({ categories = [], slug }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // ✅ remove duplicate categories
+  
   const uniqueCategories = Array.from(
     new Map(categories.map((item) => [item.slug, item])).values()
   );
 
-  // ✅ fetch products
+  
   const fetchProducts = async (categorySlug) => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5000/api/categories/${categorySlug}`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/categories/${categorySlug}`
       );
       const data = await res.json();
       setProducts(data.products || []);
@@ -33,7 +33,7 @@ const CategoryProduct = ({ categories = [], slug }) => {
     }
   };
 
-  // ✅ initial load
+
   useEffect(() => {
     if (slug) {
       setCurrentSlug(slug);

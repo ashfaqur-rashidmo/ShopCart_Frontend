@@ -10,7 +10,7 @@ import Container from "@/components/Container";
 import Loader from "@/components/Loader";
 
 const CategoryPage = ({ params }) => {
-  // ✅ REQUIRED in Next 15+
+  
   const { slug } = React.use(params);
 
   const router = useRouter();
@@ -21,7 +21,7 @@ const CategoryPage = ({ params }) => {
   const [loading, setLoading] = useState(true);
 
   const loadCategories = async () => {
-    const res = await fetch("http://localhost:5000/api/categories");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
     const data = await res.json();
 
     // ✅ unique by slug
@@ -35,7 +35,8 @@ const CategoryPage = ({ params }) => {
   const loadProducts = async (slug) => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/categories/${slug}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/${slug}`
+);
       const data = await res.json();
       setProducts(data.products || []);
     } catch (err) {
@@ -54,7 +55,7 @@ const CategoryPage = ({ params }) => {
 
   const handleCategoryClick = (slug) => {
     if (slug === currentSlug) return;
-    router.push(`/category/${slug}`); // ✅ route change
+    router.push(`/category/${slug}`); 
   };
 
   return (
@@ -108,41 +109,3 @@ const CategoryPage = ({ params }) => {
 
 export default CategoryPage;
 
-
-
-
-
-
-// "use client";
-
-// import React, { useEffect, useState } from "react";
-// import CategoryProduct from "@/components/CategoryProduct";
-
-// const CategoryProduct = ({ params }) => {
-//   const { slug } = params;
-
-//   const [categories, setCategories] = useState([]);
-//   const [products, setProducts] = useState([]);
-
-//   useEffect(() => {
-//     // Fetch categories
-//     fetch("http://localhost:5000/api/categories")
-//       .then(res => res.json())
-//       .then(data => setCategories(data.data || []));
-
-//     // Fetch products by category
-//     fetch(`http://localhost:5000/api/products/category/${slug}`)
-//       .then(res => res.json())
-//       .then(data => setProducts(data.products || []));
-//   }, [slug]);
-
-//   return (
-//     <CategoryProduct
-//       categories={categories}
-//       slug={slug}
-//       initialProducts={products}
-//     />
-//   );
-// };
-
-// export default CategoryProduct;

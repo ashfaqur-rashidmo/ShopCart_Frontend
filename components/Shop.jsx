@@ -26,7 +26,7 @@ const Shop = ({ categories = [] }) => {
     const fetchProducts = async () => {
       setLoading(true)
       try {
-        const res = await fetch('http://localhost:5000/api/products', { cache: 'no-store' })
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, { cache: 'no-store' })
         const data = await res.json()
         setAllProducts(data.data || [])
       } catch (err) {
@@ -43,7 +43,7 @@ const Shop = ({ categories = [] }) => {
   useEffect(() => {
     const fetchBrands = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/brands', { cache: 'no-store' })
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/brands`, { cache: 'no-store' })
         const data = await res.json()
         setBrands(data.data || [])
       } catch (err) {

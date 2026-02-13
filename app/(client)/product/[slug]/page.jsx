@@ -17,7 +17,7 @@ const SingleProductPage = async ({ params }) => {
   let product = null;
 
   try {
-    const res = await fetch(`http://localhost:5000/api/products/slug/${slug}`, { cache: "no-store" });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/slug/${slug}`, { cache: "no-store" });
     if (res.ok) {
       const data = await res.json();
       product = data.data;

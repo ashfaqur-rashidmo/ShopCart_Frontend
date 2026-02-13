@@ -15,7 +15,8 @@ const HomePage = () => {
   const getAllBlogs = async () => {
     setLoading(true)
     try {
-      const res = await fetch("http://localhost:5000/api/blogs", { cache: "no-store" })
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs`
+, { cache: "no-store" })
       const data = await res.json()
       setBlogs(data.data || [])
     } catch (err) {

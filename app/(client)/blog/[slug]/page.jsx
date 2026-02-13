@@ -4,7 +4,8 @@ import Link from 'next/link';
 
 const getLatestBlogs = async () => {
   const res = await fetch(
-    "http://localhost:5000/api/blogs/latest",
+    `${process.env.NEXT_PUBLIC_API_URL}/api/blogs/latest`
+,
     { cache: "no-store" }
   );
 
@@ -19,7 +20,7 @@ const BlogPage = async ({ params }) => {
   const latestBlogs = await getLatestBlogs();
   const {slug} = await params;
   const res = await fetch(
-    `http://localhost:5000/api/blogs/${slug}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${slug}`,
     { cache: "no-store" }
   );
 
