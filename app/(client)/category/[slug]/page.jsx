@@ -11,7 +11,7 @@ import Loader from "@/components/Loader";
 
 const CategoryPage = ({ params }) => {
   
-  const { slug } = React.use(params);
+  const { slug } = params;
 
   const router = useRouter();
 
@@ -24,7 +24,7 @@ const CategoryPage = ({ params }) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
     const data = await res.json();
 
-    // ✅ unique by slug
+    //  unique by slug
     const unique = Array.from(
       new Map((Array.isArray(data) ? data : []).map(c => [c.slug, c])).values()
     );
