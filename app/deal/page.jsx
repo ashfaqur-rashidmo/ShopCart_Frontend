@@ -14,7 +14,7 @@ const Dealpage = () => {
     const fetchHotProducts = async () => {
       setLoading(true)
       try {
-        const res = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/products/hot")
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/hot`)
         if (!res.ok) throw new Error("Failed to fetch hot products")
         const { data } = await res.json()
         setProducts(data || [])
